@@ -1,13 +1,15 @@
 import React from "react";
-import { useCount } from 'host/store';
+import { useSelector, useDispatch } from "react-redux";
+import { clear } from 'host/store';
 
 const Header = () => {
-  const [count, setCount] = useCount();
+  const count = useSelector((state) => state.counter.count);
+  const dispatch = useDispatch();
 
   return (
     <header className="text-5xl font-bold p-5 bg-blue-500 flex">
       <div className="flex-grow">Header - Cart count is {count}</div>
-      <button onClick={() => setCount(5)}>Clear</button>
+      <button onClick={() => dispatch(clear())}>Clear</button>
     </header>
   );
 };

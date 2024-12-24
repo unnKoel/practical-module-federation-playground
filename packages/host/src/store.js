@@ -1,11 +1,24 @@
-import React, { createContext, useContext, useState } from 'react';
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-const CountContext = createContext(0);
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: {
+    count: 0,
+  },
+  reducers: {
+    increment: (state) => {
+      state.count += 1;
+    },
+    clear: (state) => {
+      state.count = 0;
+    },
+  },
+});
 
-export const CountProvider = ({children}) => (
-  <CountContext.Provider value={useState(0)}>
-    {children}
-  </CountContext.Provider>
-)
+export const { increment, clear } = counterSlice.actions;
 
-export const useCount = () => useContext(CountContext);
+export const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+  },
+});
